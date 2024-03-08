@@ -7,7 +7,6 @@ import { createUser, signIn } from './handlers/user'
 
 const app = express()
 
-
 const customLogger = (message: string) => (req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.log(`Custom Log : ${message}`)
     next()

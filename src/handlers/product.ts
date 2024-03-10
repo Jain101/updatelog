@@ -31,30 +31,41 @@ export const getProduct = async (req: any, res: any) => {
       userId: req.user.id
     }
   })
-  res.json({ data: product });
+  if (!product) {
+    res.status(404).json({ error: `Product with id: ${id} not found` });
+  }
+  else res.json({ data: product });
 }
 
 export const updateProduct = async (req: any, res: any) => {
   const id = req.params.id;
-  const updatedProduct = await prisma.product.update({
-    where: {
-      id: id,
-      userId: req.user.id
-    },
-    data: {
-      name: req.body.name
-    }
-  })
-  res.json({ data: updatedProduct });
+  try {
+    const updatedProduct = await prisma.product.update({
+      where: {
+        id: id,
+        userId: req.user.id
+      },
+      data: {
+        name: req.body.name
+      }
+    })
+    res.json({ data: updatedProduct });
+  } catch (error) {
+    res.status(404).json({ error: `Product with ${id} not found. Update Failed!` });
+  }
 }
 
 export const deleteProduct = async (req: any, res: any) => {
   const id = req.params.id;
-  const deletedProduct = await prisma.product.delete({
-    where: {
-      id: id,
-      userId: req.user.id
-    }
-  })
-  res.json({ data: deletedProduct });
+  try{
+    const deletedProduct = await prisma.product.delete({
+      where: {
+        id: id,
+        userId: req.user.id
+      }
+    })
+    res.json({ data: deletedProduct });
+  } catch (error) {
+    res.status(404).json({ error: `Product with id: ${id} not found. Delection Failed!` });
+  }
 }

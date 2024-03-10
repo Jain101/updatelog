@@ -20,7 +20,8 @@ Backend : Node.js, Express.js
 Deployment : Render/Vercel
 
 # Technical Designs
-https://app.eraser.io/workspace/2jr4Li835BN5QqEWHA7R
+[Erasor.io Designs](https://app.eraser.io/workspace/2jr4Li835BN5QqEWHA7R)
+[Figma Designs](https://www.figma.com/file/gdEYP2L0gyw6OZLAYGMZ8T/The-Magic-Pantry---ER-Diagram-(Community)?type=whiteboard&node-id=0-1&t=I0M1OpnRj7JS5Ade-0)
 ## DB Schema
 ![DB Schema design](image.png)
 ## API Flow
@@ -37,3 +38,8 @@ The API documentation can be found [here](https://documenter.getpostman.com/view
 
 # References
 1. API design v4 by Scott Moss
+
+
+# Learnings
+1. Build small features, test them and then build on top of these tested features.
+2. More complex the feature, more time it takes to build and test. So divide it in chunks and build and test them separately.

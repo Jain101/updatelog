@@ -1,22 +1,20 @@
 import { Router } from 'express'
 import { body, validationResult } from 'express-validator';
 import { createProduct, deleteProduct, getProduct, getProducts, updateProduct } from './handlers/product';
+import { createUpdate, getUpdate, getUpdates } from './handlers/update';
 import { handleInputErrors } from './modules/middleware';
 const router = Router();
 /**
  * Product
  */
-// router.get('/product', getProducts)
-// router.get('/product/:id', getProduct)
-// router.post('/product', body('name').isString(), handleInputErrors, createProduct)
-// router.put('/product/:id', handleInputErrors, updateProduct)
-// router.delete('/product/:id', handleInputErrors, deleteProduct)
 router.get('/product', getProducts)
 router.get('/product/:id', getProduct)
-router.post('/product', body('name').trim().notEmpty().isString(), (req, res, next) => {
+router.post('/product', 
+body('name').trim().notEmpty().isString(), 
+(req, res, next) => {
     const result = validationResult(req);
     if (result.isEmpty()) {
-        res.send(`Product with name ${req.body.name} created. Hopefully!`)
+        res.send(`Product name ${req.body.name} Validated. Successfully!`)
     }
     else {
         res.status(400)
@@ -25,7 +23,9 @@ router.post('/product', body('name').trim().notEmpty().isString(), (req, res, ne
     next()
 },
     createProduct)
-router.put('/product/:id', body('name').trim().notEmpty().isString(), (req: any, res: any, next: any) => {
+router.put('/product/:id', 
+body('name').trim().notEmpty().isString(),
+(req: any, res: any, next: any) => {
     const result = validationResult(req);
     if (result.isEmpty()) {
         res.send(`Product id: ${req.params.id} validated!`)
@@ -38,13 +38,31 @@ router.put('/product/:id', body('name').trim().notEmpty().isString(), (req: any,
 },
     updateProduct)
 router.delete('/product/:id', deleteProduct)
+
 /**
  * Update
  */
-router.get('/update', () => { })
-router.post('/update', () => { })
-router.get('/update/:id', () => { })
-router.put('/update/:id', () => { })
+
+router.get('/updates', getUpdates)
+router.get('/update/:id', getUpdate)
+router.post('/update', 
+body('title').trim().notEmpty().isString(),
+body('body').trim().notEmpty().isString(),
+body('productId').exists(),
+(req: any, res:any , next: any) => {
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+        res.send(`Update with title ${req.body.title} validated. Successfully!`)
+    }
+    else {
+        res.status(400)
+        res.send({ errors: result.array() })
+    }
+    next()
+},
+ createUpdate)
+router.put('/update/:id',
+ () => { })
 router.delete('/update/:id', () => { })
 
 /**

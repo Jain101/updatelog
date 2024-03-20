@@ -14,6 +14,13 @@
 1. added ID validation check in GET /product route handler
 2. error handling in PUT /product route handler
 3. ID validation check in DELETE /product route handler
+4. learnt about <array>.reduce() method in JavaScript https://www.youtube.com/watch?v=s1XVfm5mIuU
+
+
+# Notes
+1. changed anything in schema? Tell DB about it by running a migration.
+```npx prisma migrate dev```
+
 
 # Questions
 1. why to do validation checks in the API?

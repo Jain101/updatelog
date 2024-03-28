@@ -40,18 +40,25 @@ export const getUpdates = async (req: any, res: any) => {
 export const createUpdate = async (req: any, res: any) => {
     const product = await prisma.product.findUnique({
         where: {
-            id: req.body.id
+            id: req.body.productId
         }
     })
     if (!product) {
         res.status(404).json({ error: `Product with id: ${req.body.id} not found` })
     }
-    else {
-        const update = await prisma.update.create({
-            data: req.body
-        })
-        res.json({ data: update })
-    }
+
+    const update = await prisma.update.create({
+        data: {
+            title: req.body.title,
+            body: req.body.body,
+            product: {
+                connect: {
+                    id: product?.id // Add null check for 'product'
+                }
+            }
+        }
+    })
+    res.json({ data: update })
 }
 
 export const updateUpdate = async (req: any, res: any) => {

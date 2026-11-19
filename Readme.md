@@ -25,10 +25,13 @@ Deployment : Render/Vercel
 ## API Flow
 
 # Setup
-1. Clone the repository
-2. Run `npm install` to install all the dependencies
-3. Run `npm start` to start the server
-4. Run `npm test` to run the tests
+Requires Node 24 (`nvm use`) and Docker.
+1. `npm install`
+2. `cp .env.example .env`
+3. `docker compose up -d` (Postgres on port 5434)
+4. `npm run db:migrate`
+5. `npm run dev` to start the server on port 3001
+6. `npm test` to run the tests (uses a separate `updatelog_test` database)
 
 # API Documentation
 The API documentation can be found [here](https://documenter.getpostman.com/view/10689707/Tz5tYz8n)
